@@ -1,6 +1,9 @@
 # SParse
 Hemmagjord parser för att serialisera simpla text-commands.
-Var från början en del en lösning till att enkelt kunna testa och uppdatera data i runtime via terminalen. Är extremt inspirerat/direkt taget av JSON och kombinerat med "det som inte parseas som JSON" hanteras som ett command. 
+
+Var från början en del en lösning till att enkelt kunna testa och uppdatera data i runtime via terminalen. 
+
+Är extremt inspirerat/direkt taget av JSON och kombinerat med "det som inte parseas som JSON" hanteras som ett command. 
 Är senaste stora projektet som - trots få rader kod - försöker utnyttja fördelarna med [funktionell programmering](https://sv.wikipedia.org/wiki/Funktionell_programmering).
 
 # --- Old ---
