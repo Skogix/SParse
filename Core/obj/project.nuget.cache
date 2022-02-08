@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vt8pYiFBNZh/dT/1oP/EY/PSxi4PhiIJMQtcVLKZSenbPU9oIYv98a9IXWDjIIoU4x3DVYzl0QkIp7C+rgeeWA==",
+  "dgSpecHash": "w0Y81sYomG8Jgv13ThyHQ2q5cJzE1XALig+Sf+VQpMZV2OmrmMiaCSxhtgGtD8+Pgd0iadWmnLcOTUyOEBjIcA==",
   "success": true,
-  "projectFilePath": "/home/skogix/dev/SParse/Core/Core.fsproj",
+  "projectFilePath": "/home/skogix/SParse/Core/Core.fsproj",
   "expectedPackageFiles": [
     "/home/skogix/.nuget/packages/fsharp.core/6.0.1/fsharp.core.6.0.1.nupkg.sha512",
     "/home/skogix/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.0/microsoft.aspnetcore.app.ref.6.0.0.nupkg.sha512"

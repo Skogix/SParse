@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/skogix/dev/SParse/Core/Core.fsproj": {}
+    "/home/skogix/SParse/Core/Core.fsproj": {}
   },
   "projects": {
-    "/home/skogix/dev/SParse/Core/Core.fsproj": {
+    "/home/skogix/SParse/Core/Core.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/skogix/dev/SParse/Core/Core.fsproj",
+        "projectUniqueName": "/home/skogix/SParse/Core/Core.fsproj",
         "projectName": "Core",
-        "projectPath": "/home/skogix/dev/SParse/Core/Core.fsproj",
+        "projectPath": "/home/skogix/SParse/Core/Core.fsproj",
         "packagesPath": "/home/skogix/.nuget/packages/",
-        "outputPath": "/home/skogix/dev/SParse/Core/obj/",
+        "outputPath": "/home/skogix/SParse/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/skogix/.nuget/NuGet/NuGet.Config"
