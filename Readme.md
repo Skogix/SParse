@@ -1,4 +1,9 @@
+# SParse
 Hemmagjord parser för att serialisera simpla text-commands.
+Var från början en del en lösning till att enkelt kunna testa och uppdatera data i runtime via terminalen. Är extremt inspirerat/direkt taget av JSON och kombinerat med "det som inte parseas som JSON" hanteras som ett command. 
+Är senaste stora projektet som - trots få rader kod - försöker utnyttja fördelarna med [funktionell programmering](https://sv.wikipedia.org/wiki/Funktionell_programmering).
+
+# --- Old ---
 ##### Exempel
 ```f# script
 type SValue =
@@ -10,8 +15,8 @@ type SValue =
   | SObject of Map<string, SValue>
   | SCommand of string * SValue option
   
-true    -> Sbool true
-false   -> Sbool false
+true    -> SBool true
+false   -> SBool false
 null    -> SNull
 42      -> SNumber 42.0
 0.5     -> SNumber 0.5
