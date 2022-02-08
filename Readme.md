@@ -17,6 +17,9 @@ type SValue =
   | SArray of SValue list
   | SObject of Map<string, SValue>
   | SCommand of string * SValue option
+
+
+INPUT   -> OUTPUT
   
 true    -> SBool true
 false   -> SBool false
