@@ -19,7 +19,7 @@ type SValue =
   | SCommand of string * SValue option
 
 
-INPUT   -> OUTPUT
+//INPUT -> OUTPUT
   
 true    -> SBool true
 false   -> SBool false
