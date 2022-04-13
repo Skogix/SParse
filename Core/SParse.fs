@@ -122,7 +122,7 @@ let pValueCommand =
 //  let sCommand = command .>>. argument
   sCommand
   |>>  SCommand
-sValueRef := choice
+sValueRef.Value <- choice
   [
     pValueNull
     pValueBool

@@ -119,11 +119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/skogix/SParse/Core/Core.fsproj",
+      "projectUniqueName": "/home/skogix/dev/SParse/Core/Core.fsproj",
       "projectName": "Core",
-      "projectPath": "/home/skogix/SParse/Core/Core.fsproj",
+      "projectPath": "/home/skogix/dev/SParse/Core/Core.fsproj",
       "packagesPath": "/home/skogix/.nuget/packages/",
-      "outputPath": "/home/skogix/SParse/Core/obj/",
+      "outputPath": "/home/skogix/dev/SParse/Core/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/skogix/.nuget/NuGet/NuGet.Config"
@@ -165,7 +165,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.0, 6.0.0]"
+            "version": "[6.0.2, 6.0.2]"
           }
         ],
         "frameworkReferences": {
@@ -173,7 +173,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.102/RuntimeIdentifierGraph.json"
       }
     }
   }

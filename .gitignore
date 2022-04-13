@@ -1,2 +1,4 @@
 /Console/bin/
 /Console/obj/
+.fake
+.ionide
