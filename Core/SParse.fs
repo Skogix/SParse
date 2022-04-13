@@ -43,7 +43,7 @@ let pValueNumber =
   let digitOneToNine = satisfy (fun ch -> Char.IsDigit ch && ch <> '0') "digits 1-9"
   let digit = satisfy (fun ch -> Char.IsDigit ch) "digit"
   let dot = parseChar '.'
-  let optPlusMinus = opt(parseChar '-' <|> parseChar '+')
+  // let optPlusMinus = opt(parseChar '-' <|> parseChar '+')
   let nonZeroNumber =
     digitOneToNine .>>.manyChars digit
     |>> fun (first, rest) -> string first + rest
@@ -71,11 +71,11 @@ let pValueNumber =
   <?> "number"
 let createParserForwardedToRef<'a>() =
   let dummyParser =
-    let innerFn input : Result<'a * string> = failwith "forward parser not set"
+    let innerFn _ : Result<'a * string> = failwith "forward parser not set"
     {parseFn=innerFn;label="forward parser"}
   let parserRef = ref dummyParser
   let innerFn input =
-    run !parserRef input
+    run parserRef.Value input
   let wrapperParser = {parseFn=innerFn;label="wrapper parser"}
   wrapperParser, parserRef
 let sSharpValue, sValueRef = createParserForwardedToRef<SValue>() 
@@ -90,7 +90,7 @@ let pValueArray =
   |>> SArray
   <?> "array"
 // sätter potentiella forwarden till number
-sValueRef := pValueNumber
+sValueRef.Value <- pValueNumber
 let pValueObject =
   let left = parseChar '{' .>> spaces
   let right = parseChar '}' .>> spaces
