@@ -1,6 +1,7 @@
 module Core.SParser
 open System
 open Core.Common
+/// slutgiltliga valuen som returnas
 type SValue =
   | SNull
   | SBool of bool
@@ -9,12 +10,13 @@ type SValue =
   | SArray of SValue list
   | SObject of Map<string, SValue>
   | SCommand of string * SValue option
-
 /// infix som kör parser, ignorerar resultatet och returnar value
 let (>>%) p x = p |>> fun _ -> x
+/// retur av value null
 let pValueNull =
   parseString "null"
   >>% SNull <?> "null"
+/// return av value bool
 let pValueBool =
   let sTrue =
     parseString "true"
@@ -23,20 +25,24 @@ let pValueBool =
     parseString "false"
     >>% SBool false
   sTrue <|> sFalse <?> "bool"
+/// return string utan value
 let pString =
   let chars = anyOf (['a'..'z'] @ ['A'..'Z'] @ ['(';')'])
   let string =
     manyChars chars 
   string
   <?> "string parser"
+/// return av value "string" eller 'string'
 let pQuotedString =
   let quote = parseChar '\"' <?> "quote"
   let chars = anyOf (['a'..'z'] @ ['A'..'Z'] @ ['(';')'])
   quote >>. manyChars chars .>> quote
+/// return av value string
 let pValueString =
   pQuotedString
   |>> SString
   <?> "quoted string"
+/// return av value int
 let pValueNumber =
   let optMinus = opt (parseChar '-')
   let zero = parseString "0"
@@ -78,8 +84,9 @@ let createParserForwardedToRef<'a>() =
     run parserRef.Value input
   let wrapperParser = {parseFn=innerFn;label="wrapper parser"}
   wrapperParser, parserRef
+/// return av value "Skogix"
 let sSharpValue, sValueRef = createParserForwardedToRef<SValue>() 
-
+/// return av value array
 let pValueArray =
   let left = parseChar '[' .>> spaces
   let right = parseChar ']' .>> spaces
@@ -118,12 +125,14 @@ let pValueCommand =
                        .>> spaces
                      )
   let sCommand = command .>>. argument
-//  let argument = opt (sValue .>> spaces)
-//  let sCommand = command .>>. argument
+// let argument = opt (sValue .>> spaces)
+// let sCommand = command .>>. argument
   sCommand
   |>>  SCommand
 sValueRef.Value <- choice
   [
+// def av en slutgiltlig value
+// detta ger prioritet / ordning
     pValueNull
     pValueBool
     pValueNumber

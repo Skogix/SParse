@@ -1,4 +1,4 @@
-# SParse
+: SParse
 Hemmagjord parser för att serialisera simpla text-commands inspirerad av [fparsec](https://www.quanttec.com/fparsec/).
 
 Var från början en del en lösning till att enkelt kunna testa och uppdatera data i runtime via terminalen. 
