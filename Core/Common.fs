@@ -210,11 +210,14 @@ let digitChar =
 let parseInt =
   let label = "int"
   let resultToInt (sign, digits) =
-    // todo int overflow
-    let i = digits |> int
-    match sign with
-    | Some ch -> -i
-    | None -> i
+    // hantera int overflow med Int32.TryParse
+    let signStr = if Option.isSome sign then "-" else ""
+    let numStr = signStr + digits
+    match System.Int32.TryParse(numStr) with
+    | (true, value) -> value
+    | (false, _) ->
+      // om talet är för stort, kasta exception med tydligt felmeddelande
+      failwith $"Integer overflow: %s{numStr} is too large for Int32"
   let digits = manyChars1 digitChar
   opt (parseChar '-') .>>. digits
   |> mapParse resultToInt
