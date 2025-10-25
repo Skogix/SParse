@@ -553,7 +553,7 @@ let loadFromJson (path: string) : DefinitionRegistry =
 
 /// Merge registries (right takes precedence)
 let merge (left: DefinitionRegistry) (right: DefinitionRegistry) : DefinitionRegistry =
-  Map.fold (fun acc key value -> Map.add key value acc) left right
+  Map.fold (fun acc key value -> Map.add key value acc) right left
 ```
 
 ---
