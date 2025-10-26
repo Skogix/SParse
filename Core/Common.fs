@@ -128,20 +128,16 @@ let rec seqParsers ps =
   | [] -> returnParser []
   | first::rest -> consParser first (seqParsers rest)
 /// parsea något tills fail / kör tills något hittas eller failar
-let rec parseZeroOrMore p input =
-  let result1 = run p input
-  match result1 with
-  | ParseFailure _ -> ([], input)
-  // (valuen som parseas, resten av input 1)
-  | ParseSuccess (x, restIn) ->
-    // (resten av alla values från innan, resten av input 2)
-    let (xs, restOut) =
-      // kör så länge det är success
-      parseZeroOrMore p restIn
-    // skicka ut nya values när det kommer hit
-    let values = x::xs
-    // (alla values som hittades, resten efter fail)
-    (values, restOut)
+let parseZeroOrMore p input =
+  // använd accumulator för tail-recursion
+  let rec parseAcc acc input =
+    let result1 = run p input
+    match result1 with
+    | ParseFailure _ -> (List.rev acc, input)
+    | ParseSuccess (x, restIn) ->
+      // tail-recursive call med uppdaterad accumulator
+      parseAcc (x::acc) restIn
+  parseAcc [] input
 /// matchar 0 eller mer av en parser
 let many p =
   let label = sprintf "many %s" (getLabel p)
