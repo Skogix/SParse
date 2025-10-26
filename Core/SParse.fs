@@ -29,14 +29,26 @@ let pValueBool =
 let pString =
   let chars = anyOf (['a'..'z'] @ ['A'..'Z'] @ ['(';')'])
   let string =
-    manyChars chars 
+    manyChars chars
   string
   <?> "string parser"
+/// parsear escape-sekvenser i strängar
+let pEscapedChar =
+  parseChar '\\'
+  >>. (
+    (parseChar '\"' >>% '\"')
+    <|> (parseChar '\\' >>% '\\')
+    <|> (parseChar 'n' >>% '\n')
+    <|> (parseChar 't' >>% '\t')
+    <|> (parseChar 'r' >>% '\r')
+  ) <?> "escaped char"
 /// return av value "string" eller 'string'
 let pQuotedString =
   let quote = parseChar '\"' <?> "quote"
-  let chars = anyOf (['a'..'z'] @ ['A'..'Z'] @ ['(';')'])
-  quote >>. manyChars chars .>> quote
+  // acceptera alla tecken utom citattecken och backslash, eller escape-sekvenser
+  let normalChar = satisfy (fun ch -> ch <> '\"' && ch <> '\\') "string char"
+  let stringChar = pEscapedChar <|> normalChar
+  quote >>. manyChars stringChar .>> quote
 /// return av value string
 let pValueString =
   pQuotedString
@@ -92,7 +104,7 @@ let pValueArray =
   let right = parseChar ']' .>> spaces
   let comma = parseChar ',' .>> spaces
   let value = sSharpValue .>> spaces
-  let values = separatedBy1 value comma
+  let values = separateBy value comma
   between left values right
   |>> SArray
   <?> "array"
@@ -105,10 +117,10 @@ let pValueObject =
   let comma = parseChar ',' .>> spaces
   let key = pQuotedString .>> spaces
   let value = sSharpValue .>> spaces
-  
+
   let keyValue = (key .>> colon) .>>. value
-  let keyValues = separatedBy1 keyValue comma
-  
+  let keyValues = separateBy keyValue comma
+
   between left keyValues right
   |>> Map.ofList
   |>> SObject
