@@ -1,5 +1,6 @@
 /Console/bin/
 /Console/obj/
+/Core/obj/
+/Core/bin/
 .fake
 .ionide
-Core/obj/Debug/net6.0

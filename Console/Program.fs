@@ -24,6 +24,12 @@ printSParse """{
 }"""
 printSParse "bar"
 printSParse "foo \"string\""
-while true do
-    printf "Input: "
-    printSParse (Console.ReadLine())
+let mutable running = true
+while running do
+    printf "Input (or 'exit' to quit): "
+    let input = Console.ReadLine()
+    if input = "exit" || input = "quit" then
+        running <- false
+        printfn "Goodbye!"
+    else
+        printSParse input
