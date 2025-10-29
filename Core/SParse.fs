@@ -92,7 +92,7 @@ let pValueArray =
   let right = parseChar ']' .>> spaces
   let comma = parseChar ',' .>> spaces
   let value = sSharpValue .>> spaces
-  let values = separatedBy1 value comma
+  let values = separateBy value comma
   between left values right
   |>> SArray
   <?> "array"
@@ -105,10 +105,10 @@ let pValueObject =
   let comma = parseChar ',' .>> spaces
   let key = pQuotedString .>> spaces
   let value = sSharpValue .>> spaces
-  
+
   let keyValue = (key .>> colon) .>>. value
-  let keyValues = separatedBy1 keyValue comma
-  
+  let keyValues = separateBy keyValue comma
+
   between left keyValues right
   |>> Map.ofList
   |>> SObject
