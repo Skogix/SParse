@@ -207,7 +207,7 @@ let parseInt =
   let label = "int"
   let resultToInt (sign, digits) =
     // hantera int overflow med Int32.TryParse
-    let signStr = if Option.isSome sign then "-" else ""
+    let signStr = match sign with | Some _ -> "-" | None -> ""
     let numStr = signStr + digits
     match System.Int32.TryParse(numStr) with
     | (true, value) -> value
