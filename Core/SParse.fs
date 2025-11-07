@@ -153,5 +153,42 @@ sValueRef.Value <- choice
     pValueArray
     pValueCommand
   ]
-let printSParse (input:string) = printResult (run sSharpValue input)
+/// Convert SValue to JSON string with type/value format
+let rec toJson (value: SValue) : string =
+  let escape (s: string) =
+    s.Replace("\\", "\\\\")
+     .Replace("\"", "\\\"")
+     .Replace("\n", "\\n")
+     .Replace("\r", "\\r")
+     .Replace("\t", "\\t")
+
+  match value with
+  | SNull ->
+      """{"type": "null", "value": null}"""
+  | SBool b ->
+      sprintf """{"type": "bool", "value": %s}""" (if b then "true" else "false")
+  | SNumber n ->
+      sprintf """{"type": "number", "value": %g}""" n
+  | SString s ->
+      sprintf """{"type": "string", "value": "%s"}""" (escape s)
+  | SArray items ->
+      let jsonItems = items |> List.map toJson |> String.concat ", "
+      sprintf """{"type": "array", "value": [%s]}""" jsonItems
+  | SObject map ->
+      let jsonPairs =
+        map
+        |> Map.toList
+        |> List.map (fun (k, v) -> sprintf """"%s": %s""" (escape k) (toJson v))
+        |> String.concat ", "
+      sprintf """{"type": "object", "value": {%s}}""" jsonPairs
+  | SCommand (name, argOpt) ->
+      match argOpt with
+      | None -> sprintf """{"type": "command", "name": "%s"}""" (escape name)
+      | Some arg -> sprintf """{"type": "command", "name": "%s", "arg": %s}""" (escape name) (toJson arg)
+
+let printSParse (input:string) =
+  match run sSharpValue input with
+  | ParseSuccess (value, _) -> printfn "%s" (toJson value)
+  | ParseFailure (label, error) -> printfn "Error parsing %s\n%s" label error
+
 let getSParse (input:string) = run sSharpValue input
