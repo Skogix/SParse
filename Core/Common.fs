@@ -14,7 +14,7 @@ type Parser<'T> = {
 let printResult result =
   match result with
   | ParseSuccess (x, inp) -> printfn "%A" x
-  | ParseFailure (label, error) -> printfn $"Error: Label %s{label}: Error: %s{error}"
+  | ParseFailure (label, error) -> eprintfn "%s: %s" label error
 /// parsear en char
 let satisfy predicate label =
   let innerFn input =

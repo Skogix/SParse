@@ -189,6 +189,6 @@ let rec toJson (value: SValue) : string =
 let printSParse (input:string) =
   match run sSharpValue input with
   | ParseSuccess (value, _) -> printfn "%s" (toJson value)
-  | ParseFailure (label, error) -> printfn "Error parsing %s\n%s" label error
+  | ParseFailure (label, error) -> eprintfn "%s: %s" label error
 
 let getSParse (input:string) = run sSharpValue input
